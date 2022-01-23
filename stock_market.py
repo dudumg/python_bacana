@@ -20,7 +20,7 @@ def juros_simples(j, n):
 
 stocks = st.sidebar.multiselect('Escolha a/as ações que você deseja:',('PBR','NU','UBER','MSFT','AAPL','ERJ'))
 for simbolo in stocks:
-    data = yf.download(tickers=simbolo, period='5d', interval='5m')
+    data = yf.download(tickers=simbolo, period='1d', interval='5m')
     #declare figure
     fig = go.Figure()
 
