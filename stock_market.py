@@ -1,3 +1,7 @@
+from requests import Request, Session
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
+import json
+
 import streamlit as st
 import time
 import numpy as np
@@ -12,14 +16,14 @@ import plotly.graph_objs as go
 
 st.title('Calculadora de valores')
 
-
-    
 def juros_compostos(j, n):
     return j ** n
 
 def juros_simples(j, n):
     return j * n
+#def IPCA(
 
+#opcoes = st.sidebar.selectbox('Escolha a sua opção de módulo:', ('Calculadora de Juros','Bolsa de Valores(NYSE)','IPCA mensal'))
 opcoes = st.sidebar.selectbox('Escolha a sua opção de módulo:', ('Calculadora de Juros','Bolsa de Valores(NYSE)'))
 
 if opcoes == 'Bolsa de Valores(NYSE)':
@@ -65,13 +69,22 @@ if opcoes == 'Calculadora de Juros':
     divida = st.number_input('Quanto era a sua dívida')
     #meses = int(input("Há quantos meses você está devendo?:"))
     meses = st.number_input('Há quantos meses você está devendo?', format='%d', step=1)
-    #tx_juros = float(input("Qual é a taxa de juros básicas?:"))
+    #tx_juros = float(input("Qual é a taxa de juros básica mensal?:"))
     tx_juros = st.number_input('Qual é a taxa de juros básica?')
     #print("A sua dívida atual é", divida * juros(1 + (tx_juros/100), meses))
     if tipo_juros == 'Simples':
-        st.write("A sua dívida atual é", divida * juros_simples(1 + (tx_juros/100), meses))
+        st.write("A sua dívida atual é", divida * (1 + juros_simples(tx_juros/100, meses)))
     else:
         st.write("A sua dívida atual é", divida * juros_compostos(1 + (tx_juros/100), meses))
+
+#if opcoes == 'IPCA mensal':
+#    mes = st.number_input('Digite o mês que você deseja (01 - 12):')
+#    ano = st.number_input('Digite o ano que você deseja (2000 - 2021):')
+ 
+
+    
+        
+ 
     
 
 
